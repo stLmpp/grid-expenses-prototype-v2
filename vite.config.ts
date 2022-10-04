@@ -24,7 +24,7 @@ export default defineConfig(async (options) => {
     base: './',
     clearScreen: false,
     server: {
-      port: 4200,
+      port: 3333,
     },
     resolve: {
       alias: {
