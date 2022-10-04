@@ -1,0 +1,8 @@
+<input
+  class="ag-input-field-input ag-text-field-input"
+  #input
+  [(ngModel)]="value"
+  [imask]="maskOptions"
+  (keydown)="onKeydown($event)"
+  type="text"
+/>

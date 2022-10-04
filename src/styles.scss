@@ -1,0 +1,13 @@
+@use 'theme';
+
+html,
+body {
+  height: 100%;
+  -webkit-overflow-scrolling: touch;
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}

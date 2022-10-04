@@ -1,0 +1,12 @@
+- [x] Add Cell Editor Date
+- [x] Migrate to elf
+- [x] Undo and Redo
+- [x] Add year model to the logic
+- [ ] Figure out a way to add new lines when no lines are present
+- [x] Make logic to replicate installments to next months
+- [x] Add order field to Expense
+- [x] Color of rows (installment)
+- [x] Color of rows (custom)
+- [x] Explain shortcuts (context menu)
+- [ ] Pre-process copy and paste
+- [ ] Pre-process excel and csv exports
