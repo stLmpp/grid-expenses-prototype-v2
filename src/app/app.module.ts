@@ -1,13 +1,15 @@
 import { registerLocaleData } from '@angular/common';
 import pt from '@angular/common/locales/pt';
-import { LOCALE_ID, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { ApiModule } from './api/api.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CoreModule } from './core/core.module';
 import { GridControlComponent } from './grid-control/grid-control.component';
 
 registerLocaleData(pt, 'pt-BR');
@@ -18,10 +20,11 @@ registerLocaleData(pt, 'pt-BR');
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    CoreModule,
     MatSnackBarModule,
     MatButtonModule,
+    ApiModule,
   ],
-  providers: [{ provide: LOCALE_ID, useValue: 'pt-BR' }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -26,7 +26,7 @@ export class DocsService {
       const parameterMetadata = methodMetadata.parameters.find(isNotNil);
       methods.push({
         controllerPath: metadata.path,
-        path: `${metadata.path}/${methodMetadata.path}`,
+        path: `${metadata.path}${methodMetadata.path ? '/' + methodMetadata.path : ''}`,
         responses: (methodMetadata.responses ?? []).map((response) => ({
           status: response.status,
           statusMessage: getReasonPhrase(response.status),

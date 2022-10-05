@@ -95,7 +95,9 @@ export class Api {
     const instance = this.injector.get(controllerMetadata.target);
     for (const [, methodMetadata] of controllerMetadata.methods) {
       const startMs = performance.now();
-      const path = `${controllerMetadata.path}/${methodMetadata.path}`;
+      const path = `${controllerMetadata.path}${
+        methodMetadata.path ? '/' + methodMetadata.path : ''
+      }`;
       this._paths.push(path);
       ipcMain.handle(path, this._createHandler(path, instance, methodMetadata));
       const endMs = performance.now();

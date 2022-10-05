@@ -1,5 +1,5 @@
 import { ChildProcess, spawn } from 'child_process';
-import { readFile, writeFile } from 'fs/promises';
+import { readFile, rm, writeFile } from 'fs/promises';
 import { join } from 'path';
 import { performance } from 'perf_hooks';
 
@@ -11,7 +11,7 @@ import { PluginOption, ResolvedConfig } from 'vite';
 import { Logger } from '../electron/main/logger/logger';
 import { calculateAndFormatPerformanceTime } from '../electron/main/util/format-performance-time';
 
-import { DIST_ELECTRON_PATH, ELECTRON_PATH } from './constants';
+import { DIST_ELECTRON_PATH, DIST_PATH, ELECTRON_PATH } from './constants';
 
 function getGlobalVars(production = false): Record<string, string> {
   return {
@@ -87,6 +87,7 @@ function build(): PluginOption {
           join(DIST_ELECTRON_PATH, 'main', 'package.json'),
           JSON.stringify(packageJson)
         ),
+        rm(join(DIST_PATH, 'src'), { recursive: true }),
       ]);
       logger.log(
         'Build completed!',
