@@ -1,9 +1,6 @@
 import { distinctUntilChanged, MonoTypeOperatorFunction } from 'rxjs';
 
-export function distinctUntilKeysChanged<
-  T extends Record<string, any>,
-  K extends keyof T
->(
+export function distinctUntilKeysChanged<T extends Record<string, any>, K extends keyof T>(
   keys: K[],
   comparator: (valueA: T[K], valueB: T[K]) => boolean = Object.is
 ): MonoTypeOperatorFunction<T> {

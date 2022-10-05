@@ -21,9 +21,6 @@ export class TestBed {
     this.injector = TestBedInjector.create();
     class TestModule {}
     Module(options)(TestModule);
-    this.moduleResolver = await ModuleResolver.create(
-      this.injector,
-      TestModule
-    ).resolveAll();
+    this.moduleResolver = await ModuleResolver.create(this.injector, TestModule).resolveAll();
   }
 }

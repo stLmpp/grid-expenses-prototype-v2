@@ -9,9 +9,7 @@ import { pathExists } from '../../util/path-exists';
 
 @Injectable()
 export class ConfigService {
-  readonly distPath = devMode
-    ? join(process.cwd(), 'dist')
-    : join(app.getAppPath(), 'dist');
+  readonly distPath = devMode ? join(process.cwd(), 'dist') : join(app.getAppPath(), 'dist');
   readonly appDataPath = join(homedir(), '.grid-expenses');
   readonly homePath = this._getHomePath();
   readonly logPath = join(this.homePath, 'log');

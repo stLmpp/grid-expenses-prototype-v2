@@ -21,9 +21,7 @@ import { ExpenseQuery } from '../../services/expense/expense.query';
   styleUrls: ['./cell-editor-autocomplete.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CellEditorAutocompleteComponent
-  implements ICellEditorAngularComp, AfterViewInit
-{
+export class CellEditorAutocompleteComponent implements ICellEditorAngularComp, AfterViewInit {
   private readonly _expenseQuery = inject(ExpenseQuery);
 
   @ViewChild('input') readonly inputElement!: ElementRef<HTMLInputElement>;

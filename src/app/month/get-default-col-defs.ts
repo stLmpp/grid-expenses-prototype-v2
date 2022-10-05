@@ -16,8 +16,7 @@ import { isNodeMovable } from './is-node-movable';
 
 function isEditable<T extends ColumnFunctionCallbackParams<Expense>>(params: T): boolean {
   return (
-    !params.node.isRowPinned() &&
-    (!params.data?.installmentId || !!params.data.isFirstInstallment)
+    !params.node.isRowPinned() && (!params.data?.installmentId || !!params.data.isFirstInstallment)
   );
 }
 
@@ -90,8 +89,7 @@ export function getDefaultColDefs(): ColDef<Expense>[] {
       cellEditor: CellEditorAutocompleteComponent,
       valueSetter: (params) => {
         const updateAllowed = isDescriptionUpdateAllowed(params.data, params.newValue);
-        const updateAllowedBool =
-          updateAllowed === InstallmentUpdateAllowedEnum.UpdateAllowed;
+        const updateAllowedBool = updateAllowed === InstallmentUpdateAllowedEnum.UpdateAllowed;
         if (updateAllowedBool) {
           params.data.description = params.newValue;
         } else {

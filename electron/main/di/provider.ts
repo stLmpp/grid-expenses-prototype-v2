@@ -45,8 +45,7 @@ export function resolveProvider(possibleProvider: Provider | Class<any>): Provid
   if (isClass(possibleProvider)) {
     return new ClassProvider(possibleProvider, possibleProvider);
   }
-  const providerObject: Partial<ValueProvider & ClassProvider & FactoryProvider> =
-    possibleProvider;
+  const providerObject: Partial<ValueProvider & ClassProvider & FactoryProvider> = possibleProvider;
   if (providerObject.useValue) {
     return new ValueProvider(providerObject.provide, providerObject.useValue);
   }

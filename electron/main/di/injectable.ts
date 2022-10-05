@@ -1,8 +1,6 @@
 import { FactoryProvider } from './provider';
 
-export type InjectableOptions = { global?: boolean } & Partial<
-  Omit<FactoryProvider, 'provide'>
->;
+export type InjectableOptions = { global?: boolean } & Partial<Omit<FactoryProvider, 'provide'>>;
 
 interface Injectable {
   (options?: InjectableOptions): ClassDecorator;
@@ -13,8 +11,7 @@ interface Injectable {
 
 const metadataStore = new Map<any, InjectableOptions>();
 
-const getMetadata: Injectable['getMetadata'] = (target) =>
-  metadataStore.get(target) ?? null;
+const getMetadata: Injectable['getMetadata'] = (target) => metadataStore.get(target) ?? null;
 const setMetadata: Injectable['setMetadata'] = (target, metadata) =>
   metadataStore.set(target, metadata);
 const getAll: Injectable['getAll'] = () => [...metadataStore];

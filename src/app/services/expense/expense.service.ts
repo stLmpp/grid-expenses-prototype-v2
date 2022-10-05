@@ -43,8 +43,7 @@ export class ExpenseService {
       // Just update the description
       return this.update(expense.id, expense);
     }
-    const { installment, installmentQuantity, descriptionWithoutInstallment } =
-      installmentsInfo;
+    const { installment, installmentQuantity, descriptionWithoutInstallment } = installmentsInfo;
     if (isExpenseInstallment(expense)) {
       // Expense already has installment configuration
       if (installmentQuantity < expense.installmentQuantity) {
@@ -84,14 +83,11 @@ export class ExpenseService {
   }
 
   generateRandomData(year: number, month: number, qty?: number): void {
-    const newEntities: Expense[] = Array.from(
-      { length: qty ?? random(5, 25) },
-      (_, index) => ({
-        ...this.getBlankRow(year, month),
-        description: getMockDescription(),
-        date: addDays(new Date(year, month - 1), index),
-      })
-    );
+    const newEntities: Expense[] = Array.from({ length: qty ?? random(5, 25) }, (_, index) => ({
+      ...this.getBlankRow(year, month),
+      description: getMockDescription(),
+      date: addDays(new Date(year, month - 1), index),
+    }));
     this._expenseStore.update(addEntities(newEntities));
   }
 

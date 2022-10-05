@@ -35,9 +35,7 @@ type IHeaderPersonParams<T = any> = HeaderPersonParams & IHeaderParams<T>;
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
-export class HeaderPersonComponent
-  implements IHeaderAngularComp, OnDestroy, AfterViewInit
-{
+export class HeaderPersonComponent implements IHeaderAngularComp, OnDestroy, AfterViewInit {
   private readonly _personService = inject(PersonService);
 
   private readonly _destroy$ = new Subject<void>();
@@ -102,8 +100,7 @@ export class HeaderPersonComponent
       this.onSortChanged();
     };
     this.params.column.addEventListener('sortChanged', listener);
-    this._removeListener = () =>
-      this.params.column.removeEventListener('sortChanged', listener);
+    this._removeListener = () => this.params.column.removeEventListener('sortChanged', listener);
   }
 
   onSortChanged(): void {
@@ -120,8 +117,7 @@ export class HeaderPersonComponent
 
   refresh(params: IHeaderPersonParams<Expense>): boolean {
     const shouldRefresh =
-      params.person.id !== this.params.person.id ||
-      params.person.name !== this.params.person.name;
+      params.person.id !== this.params.person.id || params.person.name !== this.params.person.name;
     this._init(params);
     return shouldRefresh;
   }
@@ -132,9 +128,7 @@ export class HeaderPersonComponent
       .getAllGridColumns()
       .filter((column) => {
         const colDef = column.getColDef();
-        return (
-          colDef.headerComponentParams && colDef.headerComponent === HeaderPersonComponent
-        );
+        return colDef.headerComponentParams && colDef.headerComponent === HeaderPersonComponent;
       })
       .findIndex((column) => column.getColId() === colId);
     if (index >= 0) {

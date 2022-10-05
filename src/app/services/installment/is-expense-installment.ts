@@ -1,10 +1,6 @@
 import { isNotNil } from 'st-utils';
 
-import {
-  Expense,
-  ExpenseInstallment,
-  ExpenseInstallmentKeys,
-} from '../../models/expense';
+import { Expense, ExpenseInstallment, ExpenseInstallmentKeys } from '../../models/expense';
 
 export function isExpenseInstallment(
   expense: Expense | null | undefined

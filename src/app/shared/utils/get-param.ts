@@ -21,9 +21,7 @@ export function getParam(
   options?: GetParamOptions
 ): string | number | null {
   const snapshot =
-    activatedRoute instanceof ActivatedRouteSnapshot
-      ? activatedRoute
-      : activatedRoute.snapshot;
+    activatedRoute instanceof ActivatedRouteSnapshot ? activatedRoute : activatedRoute.snapshot;
   let paramValue: string | number | null = snapshot.paramMap.get(param);
   if (!options?.raw) {
     paramValue = paramValue && Number(paramValue);

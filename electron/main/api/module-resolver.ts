@@ -21,9 +21,7 @@ export class ModuleResolver {
   private readonly _moduleSet = new Map<any, ModuleWithoutImports>();
   private _controllers: Class<any>[] = [];
 
-  private _getAllOptionsFromModule(
-    module: Class<any> | ModuleWithProviders
-  ): ModuleWithoutImports {
+  private _getAllOptionsFromModule(module: Class<any> | ModuleWithProviders): ModuleWithoutImports {
     if (this._moduleSet.has(module)) {
       return this._moduleSet.get(module)!;
     }
@@ -49,9 +47,7 @@ export class ModuleResolver {
     }
     const moduleWithProvidersProviders =
       module instanceof ModuleWithProviders ? module.providers : [];
-    const moduleOptionsChildren = this._getAllOptionsFromModules(
-      moduleMetadata.imports ?? []
-    );
+    const moduleOptionsChildren = this._getAllOptionsFromModules(moduleMetadata.imports ?? []);
     const providers = [
       ...(moduleMetadata.providers ?? []),
       ...(moduleWithProvidersProviders ?? []),
@@ -83,17 +79,15 @@ export class ModuleResolver {
 
   async resolveAll(): Promise<this> {
     const childrenModules = this._getChildrenModuleOptions();
-    const providers = [
-      ...(this.moduleMetadata.providers ?? []),
-      ...childrenModules.providers,
-    ].map(resolveProvider);
+    const allProviders = [...(this.moduleMetadata.providers ?? []), ...childrenModules.providers];
+    const providers = allProviders.map(resolveProvider);
     const controllers = [
       ...(this.moduleMetadata.controllers ?? []),
       ...childrenModules.controllers,
     ];
     this._controllers = controllers;
-    const controllersProviders = controllers.map(resolveProvider);
-    this.injector.addProviders([...providers, ...controllersProviders]);
+    const controllerProviders = controllers.map(resolveProvider);
+    this.injector.addProviders([...providers, ...controllerProviders]);
     await this.injector.resolveAll();
     return this;
   }

@@ -118,9 +118,7 @@ export class Application {
         contextIsolation: true,
       },
     });
-    const api = await bootstrap(ApiModule, [
-      { provide: ConfigService, useValue: configService },
-    ]);
+    const api = await bootstrap(ApiModule, [{ provide: ConfigService, useValue: configService }]);
     return new Application(configService, browserWindow, api).init();
   }
 }

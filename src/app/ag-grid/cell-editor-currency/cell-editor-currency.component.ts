@@ -16,9 +16,7 @@ import { isNotNil } from 'st-utils';
   styleUrls: ['./cell-editor-currency.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CellEditorCurrencyComponent
-  implements ICellEditorAngularComp, AfterViewInit
-{
+export class CellEditorCurrencyComponent implements ICellEditorAngularComp, AfterViewInit {
   @ViewChild('input') readonly inputElement!: ElementRef<HTMLInputElement>;
 
   readonly maskOptions: IMask.MaskedNumberOptions = {

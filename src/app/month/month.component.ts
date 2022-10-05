@@ -165,23 +165,24 @@ export class MonthComponent implements OnDestroy {
     },
   };
 
-  readonly pinnedTopRowData$: Observable<Pick<Expense, 'people' | 'description'>[]> =
-    combineLatest([this._expenseQuery.people$, this.expenses$]).pipe(
-      map(([people, expenses]) => {
-        const peopleObject: Record<string, number> = people.reduce(
-          (acc, item) => ({ ...acc, [item.id]: 0 }),
-          {}
-        );
-        for (const expense of expenses) {
-          const entries = Object.entries(expense.people);
-          for (const [key, value] of entries) {
-            peopleObject[key] ??= 0;
-            peopleObject[key] += value ?? 0;
-          }
+  readonly pinnedTopRowData$: Observable<Pick<Expense, 'people' | 'description'>[]> = combineLatest(
+    [this._expenseQuery.people$, this.expenses$]
+  ).pipe(
+    map(([people, expenses]) => {
+      const peopleObject: Record<string, number> = people.reduce(
+        (acc, item) => ({ ...acc, [item.id]: 0 }),
+        {}
+      );
+      for (const expense of expenses) {
+        const entries = Object.entries(expense.people);
+        for (const [key, value] of entries) {
+          peopleObject[key] ??= 0;
+          peopleObject[key] += value ?? 0;
         }
-        return [{ people: peopleObject, description: 'Total por pessoa:' }];
-      })
-    );
+      }
+      return [{ people: peopleObject, description: 'Total por pessoa:' }];
+    })
+  );
 
   readonly gridOptions: GridOptions<Expense> = {
     defaultColDef: this.defaultColDef,
@@ -204,9 +205,7 @@ export class MonthComponent implements OnDestroy {
       const headerPersonColumns =
         params.columnApi
           .getColumns()
-          ?.filter(
-            (column) => column.getColDef().headerComponent === HeaderPersonComponent
-          ) ?? [];
+          ?.filter((column) => column.getColDef().headerComponent === HeaderPersonComponent) ?? [];
       const isHeaderPersonColumn =
         params.column.getColDef().headerComponent === HeaderPersonComponent;
       const headerPersonParams = params.column.getColDef()
@@ -238,10 +237,7 @@ export class MonthComponent implements OnDestroy {
             }
             headerPersonParams.deletePerson$.next();
           },
-          disabled:
-            !isHeaderPersonColumn ||
-            !headerPersonParams ||
-            headerPersonColumns.length <= 1,
+          disabled: !isHeaderPersonColumn || !headerPersonParams || headerPersonColumns.length <= 1,
           icon: deleteIcon,
         },
         ...params.defaultItems,
@@ -274,8 +270,7 @@ export class MonthComponent implements OnDestroy {
           icon: creditCardIcon,
           disabled:
             !params.node ||
-            (isExpenseInstallment(params.node.data) &&
-              !params.node.data.isFirstInstallment),
+            (isExpenseInstallment(params.node.data) && !params.node.data.isFirstInstallment),
           shortcut: `${this._shortcutService.getCtrlOrCommandSymbol()}+Shift+O`,
           action: () => {
             this._toggleOtherCardShortcut({
@@ -298,8 +293,7 @@ export class MonthComponent implements OnDestroy {
             !params.node ||
             !params.column ||
             !params.node.rowIndex ||
-            (isExpenseInstallment(params.node.data) &&
-              !params.node.data.isFirstInstallment) ||
+            (isExpenseInstallment(params.node.data) && !params.node.data.isFirstInstallment) ||
             !!params.node.data?.otherCard,
           shortcut: `${this._shortcutService.getAltOrCommandSymbol()}+Shift+↑`,
           tooltip: 'Move a linha para cima',
@@ -318,8 +312,7 @@ export class MonthComponent implements OnDestroy {
             !params.node ||
             !params.column ||
             params.node.rowIndex === params.api.getModel().getRowCount() - 1 ||
-            (isExpenseInstallment(params.node.data) &&
-              !params.node.data.isFirstInstallment) ||
+            (isExpenseInstallment(params.node.data) && !params.node.data.isFirstInstallment) ||
             !!params.node.data?.otherCard,
           shortcut: `${this._shortcutService.getAltOrCommandSymbol()}+Shift+↓`,
           tooltip: 'Move a linha para baixo',
@@ -362,8 +355,7 @@ export class MonthComponent implements OnDestroy {
             });
           },
           icon: deleteForeverIcon,
-          disabled:
-            !params.node || !params.column || !params.api.getSelectedRows().length,
+          disabled: !params.node || !params.column || !params.api.getSelectedRows().length,
           shortcut: 'Del',
           tooltip: 'Deleta as linhas selecionadas',
         },
@@ -417,9 +409,7 @@ export class MonthComponent implements OnDestroy {
       ];
       const excludedItems = new Set(['copy', 'paste']);
       // TODO change order
-      const defaultItems = (params.defaultItems ?? []).filter(
-        (item) => !excludedItems.has(item)
-      );
+      const defaultItems = (params.defaultItems ?? []).filter((item) => !excludedItems.has(item));
       return [
         ...firstItems.filter((customItem) => !customItem.disabled),
         ...defaultItems,
@@ -470,17 +460,11 @@ export class MonthComponent implements OnDestroy {
       isNodeMovable(params.node) &&
       params.node.rowIndex !== lastIndex &&
       (!params.event ||
-        (params.event.shiftKey &&
-          this._shortcutService.checkForAltOrCommand(params.event)))
+        (params.event.shiftKey && this._shortcutService.checkForAltOrCommand(params.event)))
     ) {
       const targetIndex = params.node.rowIndex! + 1;
       const targetNode = model.getRow(targetIndex)!;
-      this._expenseService.move(
-        this._getYear(),
-        this._getMonth(),
-        params.node.id!,
-        targetNode.id!
-      );
+      this._expenseService.move(this._getYear(), this._getMonth(), params.node.id!, targetNode.id!);
       params.api.clearRangeSelection();
       params.api.setFocusedCell(targetIndex, params.column);
       return true;
@@ -500,17 +484,11 @@ export class MonthComponent implements OnDestroy {
       isNodeMovable(params.node) &&
       params.node.rowIndex &&
       (!params.event ||
-        (params.event.shiftKey &&
-          this._shortcutService.checkForAltOrCommand(params.event)))
+        (params.event.shiftKey && this._shortcutService.checkForAltOrCommand(params.event)))
     ) {
       const targetIndex = params.node.rowIndex - 1;
       const targetNode = params.api.getModel().getRow(targetIndex)!;
-      this._expenseService.move(
-        this._getYear(),
-        this._getMonth(),
-        params.node.id!,
-        targetNode.id!
-      );
+      this._expenseService.move(this._getYear(), this._getMonth(), params.node.id!, targetNode.id!);
       params.api.clearRangeSelection();
       params.api.setFocusedCell(targetIndex, params.column);
       return true;
@@ -594,34 +572,23 @@ export class MonthComponent implements OnDestroy {
     }
   }
 
-  private _toggleOtherCardShortcut<
-    T extends { node: RowNode<Expense>; event?: KeyboardEvent }
-  >(params: T): void {
+  private _toggleOtherCardShortcut<T extends { node: RowNode<Expense>; event?: KeyboardEvent }>(
+    params: T
+  ): void {
     if (
       !params.event ||
       (this._shortcutService.checkForCtrlOrCommand(params.event) && params.event.shiftKey)
     ) {
       params.event?.preventDefault();
-      this._expenseService.updateOtherCard(
-        params.node.data!,
-        !params.node.data!.otherCard
-      );
+      this._expenseService.updateOtherCard(params.node.data!, !params.node.data!.otherCard);
     }
   }
 
   onCellValueChanged($event: CellValueChangedEvent<Expense>): void {
     if ($event.colDef.field === 'description') {
-      this._expenseService.updateDescription(
-        this._getYear(),
-        this._getMonth(),
-        $event.data
-      );
+      this._expenseService.updateDescription(this._getYear(), this._getMonth(), $event.data);
     } else if ($event.colDef.headerComponent === HeaderPersonComponent) {
-      this._expenseService.updatePersonValue(
-        this._getYear(),
-        this._getMonth(),
-        $event.data
-      );
+      this._expenseService.updatePersonValue(this._getYear(), this._getMonth(), $event.data);
     } else {
       this._expenseService.update($event.node.id!, $event.data);
     }
@@ -764,9 +731,7 @@ export class MonthComponent implements OnDestroy {
     );
   }
 
-  onColumnStateChange<T extends { columnApi: ColumnApi; source: string }>(
-    $event: T
-  ): void {
+  onColumnStateChange<T extends { columnApi: ColumnApi; source: string }>($event: T): void {
     if ($event.source === 'api') {
       return;
     }
@@ -805,11 +770,7 @@ export class MonthComponent implements OnDestroy {
       this._defaultColumnsState.length &&
       newColumnsState.length !== this._defaultColumnsState.length
     ) {
-      const difference = findDifferenceIndexBy(
-        newColumnsState,
-        this._defaultColumnsState,
-        'colId'
-      );
+      const difference = findDifferenceIndexBy(newColumnsState, this._defaultColumnsState, 'colId');
       const util = arrayUtil(this._defaultColumnsState, 'colId');
       for (const index of difference) {
         util.insert(newColumnsState[index], index);

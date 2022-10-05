@@ -57,8 +57,7 @@ export class InstallmentService {
       ),
       // Update all descriptions
       updateEntitiesByPredicate(
-        (expense) =>
-          isExpenseInstallment(expense) && expense.installmentId === installmentId,
+        (expense) => isExpenseInstallment(expense) && expense.installmentId === installmentId,
         (expense) => ({
           ...expense,
           description: `${descriptionWithoutInstallments}${expense.installment}/${newInstallmentQuantity}`,
@@ -92,9 +91,7 @@ export class InstallmentService {
       newEntities.push({
         month: nextDate.getMonth() + 1,
         year: nextDate.getFullYear(),
-        description: `${descriptionWithoutInstallments}${
-          index + 1
-        }/${newInstallmentQuantity}`,
+        description: `${descriptionWithoutInstallments}${index + 1}/${newInstallmentQuantity}`,
         id: v4(),
         people,
         date,
@@ -133,8 +130,7 @@ export class InstallmentService {
   ): void {
     return this._expenseStore.update(
       updateEntitiesByPredicate(
-        (expense) =>
-          isExpenseInstallment(expense) && expense.installmentId === installmentId,
+        (expense) => isExpenseInstallment(expense) && expense.installmentId === installmentId,
         (expense) => ({
           ...expense,
           description: `${descriptionWithoutInstallments}${expense.installment}/${installmentQuantity}`,

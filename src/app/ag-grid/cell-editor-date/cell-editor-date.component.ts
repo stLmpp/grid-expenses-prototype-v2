@@ -64,8 +64,7 @@ export class CellEditorDateComponent
 
   private _handleArrowDown(event: KeyboardEvent): void {
     const isMetaOrAlt = event.metaKey || event.altKey;
-    const addFn =
-      isMetaOrAlt && event.shiftKey ? addYears : isMetaOrAlt ? addMonths : addDays;
+    const addFn = isMetaOrAlt && event.shiftKey ? addYears : isMetaOrAlt ? addMonths : addDays;
     if (!this.value) {
       this.value = this._formatDate(addFn(new Date(), 1));
       return;
@@ -75,8 +74,7 @@ export class CellEditorDateComponent
 
   private _handleArrowUp(event: KeyboardEvent): void {
     const isMetaOrAlt = event.metaKey || event.altKey;
-    const subFn =
-      isMetaOrAlt && event.shiftKey ? subYears : isMetaOrAlt ? subMonths : subDays;
+    const subFn = isMetaOrAlt && event.shiftKey ? subYears : isMetaOrAlt ? subMonths : subDays;
     if (!this.value) {
       this.value = this._formatDate(subFn(new Date(), 1));
       return;

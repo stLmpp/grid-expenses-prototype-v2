@@ -13,11 +13,7 @@ import { AnyObject } from '../util/any-object.type';
 import { calculateAndFormatPerformanceTime } from '../util/format-performance-time';
 
 import { Controller, ControllerMetadata, MethodMetadata } from './controller';
-import {
-  BadRequestException,
-  Exception,
-  InternalServerErrorException,
-} from './exception';
+import { BadRequestException, Exception, InternalServerErrorException } from './exception';
 import { ModuleResolver } from './module-resolver';
 import { Response } from './response';
 import { validateData } from './validate-data';
@@ -43,8 +39,8 @@ export class Api {
   ): (event: IpcMainInvokeEvent, ...args: unknown[]) => Promise<void> | any {
     return async (_, ...args: unknown[]) => {
       try {
-        const parametersPromises: Promise<ParameterResolved>[] =
-          methodMetadata.parameters.map(async (metadata, index) => {
+        const parametersPromises: Promise<ParameterResolved>[] = methodMetadata.parameters.map(
+          async (metadata, index) => {
             const arg = args[index];
             if (!metadata) {
               return { data: arg };
@@ -61,13 +57,11 @@ export class Api {
             if (!isObject(arg) || !metadata.type) {
               return { data: arg };
             }
-            const paramInstance: AnyObject | AnyObject[] = plainToInstance(
-              metadata.type,
-              arg
-            );
+            const paramInstance: AnyObject | AnyObject[] = plainToInstance(metadata.type, arg);
             const errors = await validateData(paramInstance);
             return { data: errors.length ? null : paramInstance, errors };
-          });
+          }
+        );
         const parameters = await Promise.all(parametersPromises);
         const errors = parameters.filter((parameter) => parameter.errors?.length);
         if (errors.length) {
@@ -84,9 +78,7 @@ export class Api {
         if (error instanceof Exception) {
           return error;
         }
-        return new InternalServerErrorException(
-          error?.message ?? error?.error ?? 'Unknown error'
-        );
+        return new InternalServerErrorException(error?.message ?? error?.error ?? 'Unknown error');
       }
     };
   }

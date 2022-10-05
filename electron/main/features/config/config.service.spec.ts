@@ -32,9 +32,7 @@ describe('ConfigService', () => {
   });
 
   it('should create dev folder', async () => {
-    (access as jest.Mock)
-      .mockResolvedValueOnce(undefined)
-      .mockRejectedValueOnce(undefined);
+    (access as jest.Mock).mockResolvedValueOnce(undefined).mockRejectedValueOnce(undefined);
     global.devMode = true;
     await TestBed.configureTestingModule({
       providers: [{ provide: ConfigService, useFactory: () => ConfigService.init() }],
@@ -49,8 +47,6 @@ describe('ConfigService', () => {
       providers: [{ provide: ConfigService, useFactory: () => ConfigService.init() }],
     });
     service = TestBed.get(ConfigService);
-    expect(mkdir).toHaveBeenCalledWith(
-      expect.stringContaining(service.temporaryFilesPath)
-    );
+    expect(mkdir).toHaveBeenCalledWith(expect.stringContaining(service.temporaryFilesPath));
   });
 });

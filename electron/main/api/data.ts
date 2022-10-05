@@ -15,18 +15,14 @@ export function Data(options?: DataOptions): ParameterDecorator {
       target,
       propertyKey
     )?.[parameterIndex];
-    Controller.upsertMethodMetadata(
-      target.constructor,
-      String(propertyKey),
-      (metadata) => {
-        metadata.parameters[parameterIndex] = {
-          type: options?.type ?? reflectType,
-          optional: options?.optional ?? false,
-          index: parameterIndex,
-          isArray: options?.isArray ?? false,
-        };
-        return metadata;
-      }
-    );
+    Controller.upsertMethodMetadata(target.constructor, String(propertyKey), (metadata) => {
+      metadata.parameters[parameterIndex] = {
+        type: options?.type ?? reflectType,
+        optional: options?.optional ?? false,
+        index: parameterIndex,
+        isArray: options?.isArray ?? false,
+      };
+      return metadata;
+    });
   };
 }

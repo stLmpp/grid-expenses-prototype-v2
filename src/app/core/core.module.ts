@@ -4,6 +4,10 @@ import { withDateInterceptor } from './date.interceptor';
 import { withIsMacProvider } from './with-is-mac.provider';
 
 @NgModule({
-  providers: [{ provide: LOCALE_ID, useValue: 'pt-BR' }, withDateInterceptor(), withIsMacProvider()],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'pt-BR' },
+    withDateInterceptor(),
+    withIsMacProvider(),
+  ],
 })
 export class CoreModule {}

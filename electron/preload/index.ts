@@ -5,9 +5,7 @@ import { Response } from '../main/api/response';
 
 import { formatResponse } from './format-response';
 
-function domReady(
-  condition: DocumentReadyState[] = ['complete', 'interactive']
-): Promise<boolean> {
+function domReady(condition: DocumentReadyState[] = ['complete', 'interactive']): Promise<boolean> {
   return new Promise((resolve) => {
     if (condition.includes(document.readyState)) {
       resolve(true);

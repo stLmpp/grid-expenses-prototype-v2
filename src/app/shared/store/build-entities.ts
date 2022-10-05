@@ -1,9 +1,4 @@
-import {
-  EntitiesRef,
-  EntitiesState,
-  getEntityType,
-  getIdType,
-} from '@ngneat/elf-entities';
+import { EntitiesRef, EntitiesState, getEntityType, getIdType } from '@ngneat/elf-entities';
 
 export function buildEntities<S extends EntitiesState<Ref>, Ref extends EntitiesRef>(
   entities: getEntityType<S, Ref>[],

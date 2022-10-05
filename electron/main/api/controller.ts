@@ -37,10 +37,7 @@ interface ControllerOptions {
 
 interface Controller {
   (path: string, options?: ControllerOptions): ClassDecorator;
-  upsertMetadata(
-    target: any,
-    update: (metadata: ControllerMetadata) => ControllerMetadata
-  ): void;
+  upsertMetadata(target: any, update: (metadata: ControllerMetadata) => ControllerMetadata): void;
   upsertMethodMetadata(
     target: any,
     propertyKey: string,
@@ -55,11 +52,7 @@ const upsertMetadata: Controller['upsertMetadata'] = (target, update) => {
   const metadata = metadataStore.get(target) ?? { target, path: '', methods: new Map() };
   metadataStore.set(target, update(metadata));
 };
-const upsertMethodMetadata: Controller['upsertMethodMetadata'] = (
-  target,
-  propertyKey,
-  update
-) => {
+const upsertMethodMetadata: Controller['upsertMethodMetadata'] = (target, propertyKey, update) => {
   upsertMetadata(target, (metadata) => {
     const method = metadata.methods.get(propertyKey) ?? {
       propertyKey,
@@ -71,8 +64,7 @@ const upsertMethodMetadata: Controller['upsertMethodMetadata'] = (
     return metadata;
   });
 };
-const getMetadata: Controller['getMetadata'] = (target) =>
-  metadataStore.get(target) ?? null;
+const getMetadata: Controller['getMetadata'] = (target) => metadataStore.get(target) ?? null;
 
 function ControllerInternal(path: string, options?: ControllerOptions): ClassDecorator {
   return (target) => {

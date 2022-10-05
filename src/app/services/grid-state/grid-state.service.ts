@@ -9,9 +9,7 @@ export class GridStateService {
   private readonly _gridStateStore = inject(GridStateStore);
 
   upsertFilter(year: number, month: number, filter: Record<string, any> | null): void {
-    this._gridStateStore.update(
-      upsertEntities({ filter, year, month, id: `${year}-${month}` })
-    );
+    this._gridStateStore.update(upsertEntities({ filter, year, month, id: `${year}-${month}` }));
   }
 
   upsertColumnsState(year: number, month: number, columnsState: ColumnState[]): void {

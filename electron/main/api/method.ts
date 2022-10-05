@@ -43,9 +43,7 @@ export function Method(path: string, options?: MethodOptions): MethodDecorator {
     );
     Controller.upsertMethodMetadata(target.constructor, propertyKey, (metadata) => {
       if (!hasBadRequestError && metadata.parameters.some(Boolean)) {
-        newOptions.errorResponses!.push(
-          createErrorResponse({ status: StatusCodes.BAD_REQUEST })
-        );
+        newOptions.errorResponses!.push(createErrorResponse({ status: StatusCodes.BAD_REQUEST }));
       }
       const responses = orderBy(
         [

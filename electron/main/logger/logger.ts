@@ -14,12 +14,7 @@ import {
 
 import { isClass } from '../util/util';
 
-import {
-  ConsoleColor,
-  ConsoleLevelColor,
-  consoleLogFactory,
-  CONSOLE_METHODS,
-} from './console';
+import { ConsoleColor, ConsoleLevelColor, consoleLogFactory, CONSOLE_METHODS } from './console';
 import type { LoggerFile } from './logger-file';
 
 export enum LoggerLevel {
@@ -35,8 +30,7 @@ interface LoggerV2Options {
 export class Logger {
   private constructor(private readonly prefix?: string, options: LoggerV2Options = {}) {
     // Logger is used on the build process, so we need to check if devMode is defined
-    const level =
-      typeof devMode === 'undefined' || !devMode ? LoggerLevel.error : LoggerLevel.log;
+    const level = typeof devMode === 'undefined' || !devMode ? LoggerLevel.error : LoggerLevel.log;
     if (!options.ignorePersistence) {
       Logger._preloadLoggerV2File();
     }
@@ -51,12 +45,7 @@ export class Logger {
         if (this.prefix) {
           prefixArgs.push(ConsoleColor.FgMagenta, this.prefix, ConsoleColor.Reset);
         }
-        const finalArgs = [
-          ...prefixArgs,
-          ConsoleLevelColor[method],
-          ...args,
-          ConsoleColor.Reset,
-        ];
+        const finalArgs = [...prefixArgs, ConsoleLevelColor[method], ...args, ConsoleColor.Reset];
         if (!options.ignorePersistence) {
           Logger._persist(finalArgs);
         }

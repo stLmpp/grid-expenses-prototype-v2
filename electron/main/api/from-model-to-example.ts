@@ -18,13 +18,8 @@ function getFirstItemFromEnum(type: any): any {
   return halfValues[0];
 }
 
-function fromModelToExampleWithoutMetadata(
-  model: any,
-  { isEnum, isArray }: FromModelOptions
-): any {
-  const type = isEnum
-    ? getFirstItemFromEnum(model)
-    : defaultTypesExamplesMap.get(model) ?? {};
+function fromModelToExampleWithoutMetadata(model: any, { isEnum, isArray }: FromModelOptions): any {
+  const type = isEnum ? getFirstItemFromEnum(model) : defaultTypesExamplesMap.get(model) ?? {};
   return isArray ? [type] : type;
 }
 

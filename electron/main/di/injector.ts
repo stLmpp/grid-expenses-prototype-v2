@@ -35,9 +35,7 @@ export class Injector {
     const injectParams = Inject.getAllForTarget(provider.useClass);
     const reflectParams: Class<any>[] =
       Reflect.getMetadata(ReflectMetadataTypesEnum.paramTypes, provider.useClass) ?? [];
-    const params = reflectParams.map(
-      (param, index) => injectParams[index]?.typeFn() ?? param
-    );
+    const params = reflectParams.map((param, index) => injectParams[index]?.typeFn() ?? param);
     if (!params.length) {
       const instance = new provider.useClass();
       this._instances.set(provider.provide, instance);
@@ -48,9 +46,9 @@ export class Injector {
       const injectionInstance = await this.resolve(param);
       if (isUndefined(injectionInstance)) {
         throw new Error(
-          `Error trying to resolve ${stringifyTarget(
-            provider.useClass
-          )}. Param ${stringifyTarget(param)} undefined`
+          `Error trying to resolve ${stringifyTarget(provider.useClass)}. Param ${stringifyTarget(
+            param
+          )} undefined`
         );
       }
       injections.push(injectionInstance);
@@ -66,9 +64,9 @@ export class Injector {
       const depInstance = await this.resolve(dep);
       if (isUndefined(depInstance)) {
         throw new Error(
-          `Error trying to resolve ${stringifyTarget(
-            provider.provide
-          )}. Dep ${stringifyTarget(dep)} undefined`
+          `Error trying to resolve ${stringifyTarget(provider.provide)}. Dep ${stringifyTarget(
+            dep
+          )} undefined`
         );
       }
       deps.push(depInstance);
@@ -97,17 +95,11 @@ export class Injector {
     let provider = this._providers.get(target);
     if (!provider) {
       if (target instanceof InjectionToken && target.provider) {
-        provider = new FactoryProvider(
-          target,
-          target.provider.useFactory,
-          target.provider.deps
-        );
+        provider = new FactoryProvider(target, target.provider.useFactory, target.provider.deps);
         this.addProvider(provider);
       } else {
         throw new Error(
-          `"${stringifyTarget(
-            target
-          )}" is not provided globally nor is provided by the providers`
+          `"${stringifyTarget(target)}" is not provided globally nor is provided by the providers`
         );
       }
     }

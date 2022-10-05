@@ -79,10 +79,7 @@
               background-color: darken(var.$cell-not-editable-installment-color, 5);
 
               &.other-card {
-                background-color: darken(
-                  var.$cell-other-card-installment-not-editable,
-                  5
-                );
+                background-color: darken(var.$cell-other-card-installment-not-editable, 5);
               }
             }
           }
@@ -112,8 +109,7 @@
   }
 
   .ag-cell-range-selected:not(.ag-cell-focus),
-  .ag-body-viewport:not(.ag-has-focus)
-    .ag-cell-range-single-cell:not(.ag-cell-inline-editing) {
+  .ag-body-viewport:not(.ag-has-focus) .ag-cell-range-single-cell:not(.ag-cell-inline-editing) {
     &.ag-cell {
       @include cell-style();
     }

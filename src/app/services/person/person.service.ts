@@ -35,8 +35,6 @@ export class PersonService {
   }
 
   delete(id: string): void {
-    this._expenseStore.update(
-      deleteEntities(id, { ref: this._expenseStore.personEntitiesRef })
-    );
+    this._expenseStore.update(deleteEntities(id, { ref: this._expenseStore.personEntitiesRef }));
   }
 }
