@@ -1,14 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { StatusCodes } from 'http-status-codes';
-import {
-  catchError,
-  from,
-  map,
-  Observable,
-  shareReplay,
-  switchMap,
-  throwError,
-} from 'rxjs';
+import { catchError, from, map, Observable, shareReplay, switchMap, throwError } from 'rxjs';
 import { isNil } from 'st-utils';
 import { SetRequired } from 'type-fest';
 
@@ -37,8 +29,7 @@ export class ApiService {
   private readonly _window = inject(WINDOW);
 
   private readonly _requestInterceptors = this._interceptors.filter(isRequestInterceptor);
-  private readonly _responseInterceptors =
-    this._interceptors.filter(isResponseInterceptor);
+  private readonly _responseInterceptors = this._interceptors.filter(isResponseInterceptor);
 
   private readonly _apiInternal$ = from(this._window['api-ready']()).pipe(
     map(() => this._window['api-internal']),
@@ -47,14 +38,19 @@ export class ApiService {
 
   request<T = any, D = any>(
     path: string,
+    options: ApiOptions & { data?: D; fullResponse: true }
+  ): Observable<ApiResponse<T>>;
+  request<T = any, D = any>(
+    path: string,
+    options?: ApiOptions & { data?: D; fullResponse?: false }
+  ): Observable<T>;
+  request<T = any, D = any>(
+    path: string,
     options: ApiOptions & { data?: D } = {}
   ): Observable<T | ApiResponse<T>> {
     let request: ApiRequest = { path, data: options.data ?? {} };
     if (!options.ignoreInterceptors && !options.ignoreRequestInterceptors) {
-      request = this._requestInterceptors.reduce(
-        (acc, item) => item.request(acc),
-        request
-      );
+      request = this._requestInterceptors.reduce((acc, item) => item.request(acc), request);
     }
     return this._apiInternal$.pipe(
       map((apiInternal) => {
@@ -72,10 +68,7 @@ export class ApiService {
       switchMap((method) => method(request.data)),
       map((response) => {
         if (!options.ignoreInterceptors && !options.ignoreResponseInterceptors) {
-          response = this._responseInterceptors.reduce(
-            (acc, item) => item.response(acc),
-            response
-          );
+          response = this._responseInterceptors.reduce((acc, item) => item.response(acc), response);
         }
         const newResponse = new ApiResponse(response);
         if (!newResponse.success) {

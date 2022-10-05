@@ -4,6 +4,6 @@
   "semi": true,
   "tabWidth": 2,
   "bracketSpacing": true,
-  "printWidth": 90,
+  "printWidth": 105,
   "arrowParens": "always"
 }

@@ -1,13 +1,9 @@
 import { LOCALE_ID, NgModule } from '@angular/core';
 
-import { API_INTERCEPTOR } from '../api/api-interceptor';
-
-import { DateInterceptor } from './date.interceptor';
+import { withDateInterceptor } from './date.interceptor';
+import { withIsMacProvider } from './with-is-mac.provider';
 
 @NgModule({
-  providers: [
-    { provide: LOCALE_ID, useValue: 'pt-BR' },
-    { provide: API_INTERCEPTOR, useExisting: DateInterceptor, multi: true },
-  ],
+  providers: [{ provide: LOCALE_ID, useValue: 'pt-BR' }, withDateInterceptor(), withIsMacProvider()],
 })
 export class CoreModule {}

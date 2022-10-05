@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Provider } from '@angular/core';
 import { isArray, isObject, isString } from 'st-utils';
 
-import { ApiInterceptor } from '../api/api-interceptor';
+import { API_INTERCEPTOR, ApiInterceptor } from '../api/api-interceptor';
 import { ApiResponse } from '../api/api-response';
 
 @Injectable({ providedIn: 'root' })
-export class DateInterceptor implements ApiInterceptor {
+class DateInterceptor implements ApiInterceptor {
   response(response: ApiResponse): ApiResponse {
     return { ...response, data: handleAny(response.data) };
   }
@@ -38,4 +38,12 @@ function handleArray(value: readonly any[]): any[] {
 
 function isISODate(value: any): boolean {
   return isString(value) && ISO_DATE_REGEXP.test(value);
+}
+
+export function withDateInterceptor(): Provider {
+  return {
+    provide: API_INTERCEPTOR,
+    useExisting: DateInterceptor,
+    multi: true,
+  };
 }

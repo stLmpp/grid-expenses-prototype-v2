@@ -7,12 +7,6 @@ export class EmptyParamsGuard implements CanActivate {
 
   canActivate(): UrlTree {
     const date = new Date();
-    return this._router.createUrlTree([
-      '/',
-      'year',
-      date.getFullYear(),
-      'month',
-      date.getMonth() + 1,
-    ]);
+    return this._router.createUrlTree(['/year', date.getFullYear(), 'month', date.getMonth() + 1]);
   }
 }
