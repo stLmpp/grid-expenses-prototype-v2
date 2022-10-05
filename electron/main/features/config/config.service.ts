@@ -12,14 +12,12 @@ export class ConfigService {
   readonly distPath = devMode
     ? join(process.cwd(), 'dist')
     : join(app.getAppPath(), 'dist');
-  readonly fusPath = join(homedir(), '.fus');
+  readonly appDataPath = join(homedir(), '.grid-expenses');
   readonly homePath = this._getHomePath();
-  readonly databasePath = join(this.homePath, 'database', 'data.sqlite');
-  readonly temporaryFilesPath = join(this.homePath, 'temporary_files');
   readonly logPath = join(this.homePath, 'log');
 
   private _getHomePath(): string {
-    const paths = [this.fusPath];
+    const paths = [this.appDataPath];
     if (devMode) {
       paths.push('dev');
     }
@@ -30,19 +28,15 @@ export class ConfigService {
 
   static async init(): Promise<ConfigService> {
     const config = this.instance;
-    const fusFolderExists = await pathExists(config.fusPath);
+    const fusFolderExists = await pathExists(config.appDataPath);
     if (!fusFolderExists) {
-      await mkdir(config.fusPath);
+      await mkdir(config.appDataPath);
     }
     if (devMode) {
       const devPathExists = await pathExists(config.homePath);
       if (!devPathExists) {
         await mkdir(config.homePath);
       }
-    }
-    const temporaryFilesPathExists = await pathExists(config.temporaryFilesPath);
-    if (!temporaryFilesPathExists) {
-      await mkdir(config.temporaryFilesPath);
     }
     const logPathExists = await pathExists(config.logPath);
     if (!logPathExists) {

@@ -76,7 +76,7 @@ export class Application {
       }
     } else {
       await this._browserWindow.loadFile(
-        join(this._configService.distPath, 'index.html')
+        join(this._configService.distPath, 'public', 'index.html')
       );
       // TODO disable some options, like developer tools
     }

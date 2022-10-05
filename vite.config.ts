@@ -2,6 +2,7 @@ import { join } from 'path';
 
 import { defineConfig, PluginOption, UserConfigExport } from 'vite';
 
+import { angular } from './scripts/angular';
 import { main } from './scripts/main';
 import { preload } from './scripts/preload';
 import { deleteDist, deleteRelease } from './scripts/utils';
@@ -31,7 +32,14 @@ export default defineConfig(async (options) => {
         '@styles': join(SRC_PATH, 'styles'),
       },
     },
-    plugins: [],
+    plugins: [angular()],
+    build: {
+      rollupOptions: {
+        input: {
+          app: './src/index.html',
+        },
+      },
+    },
   };
   if (!onlyFrontEnd) {
     config.plugins!.push(await electron());
