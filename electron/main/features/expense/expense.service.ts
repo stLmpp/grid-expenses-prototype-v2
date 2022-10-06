@@ -1,4 +1,5 @@
 import { auditTime, BehaviorSubject, filter } from 'rxjs';
+import { groupBy } from 'st-utils';
 
 import { Injectable } from '../../di/injectable';
 
@@ -19,8 +20,12 @@ export class ExpenseService {
         filter((items) => !!items.length),
         auditTime(5_000)
       )
-      .subscribe(() => {
+      .subscribe(async (items) => {
         this._queue$.next([]);
+        const grouped = groupBy(items, 'year', 'tuple');
+        await Promise.all(
+          grouped.map(([year, expenses]) => this.expenseRepository.persistExpenses(year, expenses))
+        );
         // TODO logic to persist
         // TODO create json files per year
       });
