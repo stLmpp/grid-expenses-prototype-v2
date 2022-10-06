@@ -33,6 +33,8 @@ export class ExpenseQuery {
     })
   );
 
+  readonly allExpense$ = this._expenseStore.pipe(selectAllEntities());
+
   readonly colDefs$: Observable<ColDef<Expense>[]> = this.people$.pipe(
     map((people) => {
       const newColDefs: ColDef<Expense>[] = people.map((person) => {

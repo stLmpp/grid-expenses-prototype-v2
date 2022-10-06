@@ -26,7 +26,7 @@ export class ExpenseService {
   private readonly _expenseStore = inject(ExpenseStore);
   private readonly _installmentService = inject(InstallmentService);
 
-  update(id: string, partial: Partial<Expense>): void {
+  update(id: string, partial: Expense): void {
     this._expenseStore.update(updateEntities(id, partial));
   }
 
@@ -35,7 +35,7 @@ export class ExpenseService {
     if (!installmentsInfo) {
       // No installment was found on description
       if (isExpenseInstallment(expense)) {
-        // Has previous installment in the expense
+        // Has previous installment in the expense,
         // So we need to delete all future installments
         // And update the description
         return this._installmentService.deleteAllInstallments(expense);
@@ -150,7 +150,7 @@ export class ExpenseService {
       return ids.has(expense.id) && isExpenseInstallment(expense);
     }
     const expenses = this._expenseStore.query(getEntitiesFiltered(filterFn));
-    const expensesMapInstallmentId = expenses.reduce(
+    const expenseMapInstallmentId = expenses.reduce(
       (acc, item) => acc.set(item.installmentId!, item),
       new Map<string, ExpenseInstallment>()
     );
@@ -162,7 +162,7 @@ export class ExpenseService {
         if (!isExpenseInstallment(expense)) {
           return false;
         }
-        const installment = expensesMapInstallmentId.get(expense.installmentId);
+        const installment = expenseMapInstallmentId.get(expense.installmentId);
         if (!installment) {
           return false;
         }
@@ -236,7 +236,7 @@ export class ExpenseService {
         )
       );
     } else {
-      this.update(expense.id, { otherCard });
+      this.update(expense.id, { ...expense, otherCard });
     }
   }
 }

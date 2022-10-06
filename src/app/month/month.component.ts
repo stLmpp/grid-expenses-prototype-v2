@@ -596,7 +596,7 @@ export class MonthComponent implements OnDestroy {
 
   onGridReady($event: GridReadyEvent<Expense>): void {
     // this._expenseService.generateRandomData(this._getYear(), this._getMonth(), 1);
-    this._expenseService.generateRandomDataMultipleMonths();
+    // this._expenseService.generateRandomDataMultipleMonths();
     this._columnStateChanged$
       .pipe(takeUntil(this._destroy$), debounceTime(250))
       .subscribe(({ year, month, columnsState }) => {
