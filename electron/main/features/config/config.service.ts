@@ -10,12 +10,13 @@ import { pathExists } from '../../util/path-exists';
 @Injectable()
 export class ConfigService {
   readonly distPath = devMode ? join(process.cwd(), 'dist') : join(app.getAppPath(), 'dist');
-  readonly appDataPath = join(homedir(), '.grid-expenses');
-  readonly homePath = this._getHomePath();
-  readonly logPath = join(this.homePath, 'log');
+  readonly appPath = join(homedir(), '.grid-expenses');
+  readonly appDataPath = this._getHomePath();
+  readonly databasePath = join(this.appDataPath, 'database');
+  readonly logPath = join(this.appDataPath, 'log');
 
   private _getHomePath(): string {
-    const paths = [this.appDataPath];
+    const paths = [this.appPath];
     if (devMode) {
       paths.push('dev');
     }
@@ -26,19 +27,23 @@ export class ConfigService {
 
   static async init(): Promise<ConfigService> {
     const config = this.instance;
-    const fusFolderExists = await pathExists(config.appDataPath);
+    const fusFolderExists = await pathExists(config.appPath);
     if (!fusFolderExists) {
-      await mkdir(config.appDataPath);
+      await mkdir(config.appPath);
     }
     if (devMode) {
-      const devPathExists = await pathExists(config.homePath);
+      const devPathExists = await pathExists(config.appDataPath);
       if (!devPathExists) {
-        await mkdir(config.homePath);
+        await mkdir(config.appDataPath);
       }
     }
     const logPathExists = await pathExists(config.logPath);
     if (!logPathExists) {
       await mkdir(config.logPath);
+    }
+    const databasePathExists = await pathExists(config.databasePath);
+    if (!databasePathExists) {
+      await mkdir(config.databasePath);
     }
     return config;
   }

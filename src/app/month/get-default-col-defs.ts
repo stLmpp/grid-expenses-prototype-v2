@@ -3,11 +3,11 @@ import { inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { format, isDate, isEqual } from 'date-fns';
 
+import { Expense } from '../../../lib/expense';
 import { requiredValidation } from '../ag-grid/ag-grid-validations';
 import { CellEditorAutocompleteComponent } from '../ag-grid/cell-editor-autocomplete/cell-editor-autocomplete.component';
 import { CellEditorDateComponent } from '../ag-grid/cell-editor-date/cell-editor-date.component';
 import { AgGridClassesEnum } from '../ag-grid/classes.enum';
-import { Expense } from '../models/expense';
 import { InstallmentUpdateAllowedEnum } from '../services/installment/installment-update-allowed.enum';
 import { isDescriptionUpdateAllowed } from '../services/installment/is-description-update-allowed';
 

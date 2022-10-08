@@ -1,6 +1,6 @@
 import { orderBy } from 'st-utils';
 
-import { Expense } from '../../models/expense';
+import { Expense } from '../../../../lib/expense';
 
 export function isExpensesDifferent(expenseA: Expense, expenseB: Expense): boolean {
   const isPropsDiff =

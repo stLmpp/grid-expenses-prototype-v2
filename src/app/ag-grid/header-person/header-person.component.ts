@@ -16,7 +16,7 @@ import {
 import { Subject, take, takeUntil } from 'rxjs';
 import { noop, OrderByDirection } from 'st-utils';
 
-import { Expense } from '../../models/expense';
+import { Expense } from '../../../../lib/expense';
 import { Person } from '../../models/person';
 import { PersonService } from '../../services/person/person.service';
 

@@ -3,7 +3,7 @@ import { createStore } from '@ngneat/elf';
 import { entitiesPropsFactory, withEntities } from '@ngneat/elf-entities';
 import { v4 } from 'uuid';
 
-import { Expense } from '../../models/expense';
+import { Expense } from '../../../../lib/expense';
 import { Person } from '../../models/person';
 import { createStoreProviders } from '../../shared/store/create-store-providers';
 

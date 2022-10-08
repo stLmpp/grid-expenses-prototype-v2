@@ -11,7 +11,8 @@ import { addDays, isBefore, setDate } from 'date-fns';
 import { arrayUtil, coerceArray, orderBy, random } from 'st-utils';
 import { v4 } from 'uuid';
 
-import { Expense, ExpenseInstallment } from '../../models/expense';
+import { Expense } from '../../../../lib/expense';
+import { ExpenseInstallment } from '../../models/expense';
 import { getEntitiesFiltered } from '../../shared/store/get-entities-filtered';
 import { mapEntities } from '../../shared/store/map-entities';
 import { getInstallmentsFromDescription } from '../../shared/utils/get-installments-from-description';

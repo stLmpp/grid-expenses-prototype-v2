@@ -6,13 +6,13 @@ import { map, Observable, Subject } from 'rxjs';
 import { isNumber, normalizeString, orderBy } from 'st-utils';
 import { compareTwoStrings } from 'string-similarity';
 
+import { Expense } from '../../../../lib/expense';
 import { CellEditorCurrencyComponent } from '../../ag-grid/cell-editor-currency/cell-editor-currency.component';
 import { AgGridClassesEnum } from '../../ag-grid/classes.enum';
 import {
   HeaderPersonComponent,
   HeaderPersonParams,
 } from '../../ag-grid/header-person/header-person.component';
-import { Expense } from '../../models/expense';
 import { TextDistance } from '../../models/text-distance';
 import { defaultCellClassRules } from '../../month/default-cell-class-rules';
 import { getDefaultColDefs } from '../../month/get-default-col-defs';

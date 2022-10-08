@@ -41,12 +41,12 @@ import {
 import { arrayUtil } from 'st-utils';
 import { Key } from 'ts-key-enum';
 
+import { Expense } from '../../../lib/expense';
 import { AG_GRID_LOCALE_PT_BR } from '../ag-grid/ag-grid-pt-br';
 import {
   HeaderPersonComponent,
   HeaderPersonParams,
 } from '../ag-grid/header-person/header-person.component';
-import { Expense } from '../models/expense';
 import { RouteParamEnum } from '../models/route-param.enum';
 import { ExpenseQuery } from '../services/expense/expense.query';
 import { ExpenseService } from '../services/expense/expense.service';

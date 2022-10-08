@@ -26,7 +26,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { isString } from 'st-utils';
 import { Key } from 'ts-key-enum';
 
-import { Expense } from '../../models/expense';
+import { Expense } from '../../../../lib/expense';
 
 @Component({
   selector: 'app-cell-editor-date',

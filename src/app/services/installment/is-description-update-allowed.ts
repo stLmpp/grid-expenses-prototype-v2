@@ -1,4 +1,4 @@
-import { Expense } from '../../models/expense';
+import { Expense } from '../../../../lib/expense';
 import { getInstallmentsFromDescription } from '../../shared/utils/get-installments-from-description';
 
 import { InstallmentInfo } from './installment-info';

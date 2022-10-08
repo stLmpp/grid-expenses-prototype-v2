@@ -1,6 +1,6 @@
 import { CellClassRules } from '@ag-grid-community/core';
 
-import { Expense } from '../models/expense';
+import { Expense } from '../../../lib/expense';
 import { isExpenseInstallment } from '../services/installment/is-expense-installment';
 
 export const defaultCellClassRules: CellClassRules<Expense> = {

@@ -8,7 +8,8 @@ import {
 import { addMonths } from 'date-fns';
 import { v4 } from 'uuid';
 
-import { Expense, ExpenseInstallment } from '../../models/expense';
+import { Expense } from '../../../../lib/expense';
+import { ExpenseInstallment } from '../../models/expense';
 import { ExpenseStore } from '../expense/expense.store';
 
 import { isExpenseInstallment } from './is-expense-installment';

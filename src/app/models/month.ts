@@ -1,4 +1,5 @@
-import { Expense } from './expense';
+import { Expense } from '../../../lib/expense';
+
 import { Person } from './person';
 
 export interface Month {
